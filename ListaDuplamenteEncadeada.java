@@ -39,7 +39,7 @@ public class ListaDuplamenteEncadeada {
 			return;
 		}
 
-		if (anterior == null) { // valor é menor que todos da lista
+		if (anterior == null) { // Se anterior ainda é null, o novo valor deve ser inserido no início da lista (é o menor valor)
 			novo.setProx(this.inicio); 
 			this.inicio.setAnt(novo); 
 			this.inicio = novo; 
