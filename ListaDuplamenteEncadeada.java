@@ -1,7 +1,7 @@
 package duplamenteEncadeada;
 
 public class ListaDuplamenteEncadeada {
-// criar variavel inicio e seus getters e setters
+//  getters e setters
 	private Nodo inicio;
 
 	public ListaDuplamenteEncadeada() {
@@ -17,39 +17,38 @@ public class ListaDuplamenteEncadeada {
 	}
 
 	public void insereOrdenado(int valor) {
-		Nodo novo = new Nodo(valor, null, null); // instancia novo nodo
+		Nodo novo = new Nodo(valor, null, null); 
 
 		// caso a lista esteja VAZIA
 		if (this.inicio == null) {
-			this.inicio = novo; // ponteiro 'inicio' passa a apontar para o novo nodo
+			this.inicio = novo; 
 			return;
 		}
 
 		//se a lista NÃO esta vazia
-		Nodo aux = this.inicio; // aux percorre a lista
-		Nodo anterior = null;  // aponta pro nodo que vem antes do aux
-
-		while (aux != null && aux.getValor() < valor) { // enquanto inicio não for nulo e o valor for maior que o aux percorrido
+		Nodo aux = this.inicio; 
+		Nodo anterior = null;  
+		while (aux != null && aux.getValor() < valor) { 
 			anterior = aux; 
-			aux = aux.getProx(); // anda para o próximo nodo
+			aux = aux.getProx(); 
 		}
 
-		// valor já existe? não pode haver duplicatas
+		// verifica se há valor existente 
 		if (aux != null && aux.getValor() == valor) {
 			System.out.println("Valor já existente na lista. Inserção não realizada.");
 			return;
 		}
 
-		if (anterior == null) { // valor é menor que todos da lista, logo vai ser inserido no INÍCIO
-			novo.setProx(this.inicio); // coloca no inicio o novo nodo
-			this.inicio.setAnt(novo); // anterior aponta para o novo nodo
-			this.inicio = novo; // ponteiro 'inicio' passa a apontar para o novo nodo
+		if (anterior == null) { // Se anterior ainda é null, o novo valor deve ser inserido no início da lista (é o menor valor)
+			novo.setProx(this.inicio); 
+			this.inicio.setAnt(novo); 
+			this.inicio = novo; 
 		}
 
 		else { // insere no meio ou fim da lista
 			novo.setProx(aux);
 			novo.setAnt(anterior);
-			anterior.setProx(novo); // nodo anterior aponta pro novo
+			anterior.setProx(novo); 
 			if (aux != null) {
 				aux.setAnt(novo); // se não for o final da lista, atualiza o anterior do próximo
 			}
@@ -61,9 +60,9 @@ public class ListaDuplamenteEncadeada {
 		if (this.inicio == null)
 			System.out.println("Lista vazia!");
 		else {
-			int count = 0; // contador que diz a posição
+			int count = 0; 
 			Nodo aux = this.inicio;
-			while (aux != null) { // percorre a lista até o inicio ser nulo
+			while (aux != null) { // percorre a lista até o final
 				System.out.println("Valor: " + aux.getValor() + " Posição: " + count);
 				aux = aux.getProx();
 				count++;
@@ -80,12 +79,12 @@ public class ListaDuplamenteEncadeada {
 			System.out.println("Lista vazia!");
 
 		else { // não vazia
-			boolean encontrou = false; // inicializa boolean como false
+			boolean encontrou = false; 
 			
 			if (this.inicio.getProx() == null) { // lista com um nodo apenas
 				if (this.inicio.getValor() == valor) { // valor corresponde com a busca
 					System.out.println("Valor " + this.inicio.getValor() + " removido!");
-					this.inicio = null; // remove nodo
+					this.inicio = null; // limpeza do nodo
 					encontrou = true;
 				}
 			}
@@ -97,25 +96,25 @@ public class ListaDuplamenteEncadeada {
 						encontrou = true;
 						System.out.println("Valor " + aux.getValor() + " removido!");
 						
-						if (aux.getAnt() != null) { // se nodo a ser removido tiver um nodo antes, conecta ele ao próximo
-							aux.getAnt().setProx(aux.getProx()); // faz com que o nodo anterior aponte para o próximo
+						if (aux.getAnt() != null) { // se nodo a ser removido tiver um nodo antes
+							aux.getAnt().setProx(aux.getProx()); 
 						
-						} else { // se não tiver nenhum nodo anterior, apenas o proximo
-							this.inicio = aux.getProx(); // o apontador 'inicio' aponta para o próximo nodo 
+						} else { // se não tiver nenhum nodo anterior
+							this.inicio = aux.getProx(); 
 						}
 						
-						if (aux.getProx() != null) { // se nodo a ser removido tiver um nodo após
-							aux.getProx().setAnt(aux.getAnt()); //  nodo proximo aponta para anterior 
+						if (aux.getProx() != null) { 
+							aux.getProx().setAnt(aux.getAnt()); 
 						}
 						aux.setProx(null);
 						aux.setAnt(null);
-						aux = null; // limpeza do nodo aux (lixeira java vai coletar)
+						aux = null;  
 						break;
 					}
-					aux = aux.getProx(); // se o valor não for encontrado e vai procurar no próximo nodo
+					aux = aux.getProx(); 
 				}
 			}
-			if (encontrou == false) // encontrou = false
+			if (!encontrou) // encontrou = false
 				System.out.println("Valor não encontrado na LDE!");
 		}
 	}
