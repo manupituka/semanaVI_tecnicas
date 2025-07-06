@@ -72,51 +72,46 @@ public class ListaDuplamenteEncadeada {
 
 	
 	
-	public void removeValor(int valor) {
+		public boolean removeValor(int valor) {
+	    // caso a lista esteja vazia
+	    if (this.inicio == null) {
+	        return false;
+	    }
 
-		// lista vazia
-		if (this.inicio == null)
-			System.out.println("Lista vazia!");
+	    // caso a lista tenha apenas um elemento
+	    if (this.inicio.getProx() == null) {
+	        if (this.inicio.getValor() == valor) {
+	            this.inicio = null;
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    }
 
-		else { // não vazia
-			boolean encontrou = false; 
-			
-			if (this.inicio.getProx() == null) { // lista com um nodo apenas
-				if (this.inicio.getValor() == valor) { // valor corresponde com a busca
-					System.out.println("Valor " + this.inicio.getValor() + " removido!");
-					this.inicio = null; // limpeza do nodo
-					encontrou = true;
-				}
-			}
-			
-			else { // lista com mais de um valor
-				Nodo aux = this.inicio;
-				while (aux != null) { // percorre toda a lista até encontrar o valor desejado
-					if (aux.getValor() == valor) {
-						encontrou = true;
-						System.out.println("Valor " + aux.getValor() + " removido!");
-						
-						if (aux.getAnt() != null) { // se nodo a ser removido tiver um nodo antes
-							aux.getAnt().setProx(aux.getProx()); 
-						
-						} else { // se não tiver nenhum nodo anterior
-							this.inicio = aux.getProx(); 
-						}
-						
-						if (aux.getProx() != null) { 
-							aux.getProx().setAnt(aux.getAnt()); 
-						}
-						aux.setProx(null);
-						aux.setAnt(null);
-						aux = null;  
-						break;
-					}
-					aux = aux.getProx(); 
-				}
-			}
-			if (!encontrou) // encontrou = false
-				System.out.println("Valor não encontrado na LDE!");
-		}
+	    // lista com dois ou mais elementos
+	    Nodo aux = this.inicio;
+	    while (aux != null) {
+	        if (aux.getValor() == valor) {
+	            // se houver um nodo anterior
+	            if (aux.getAnt() != null) {
+	                aux.getAnt().setProx(aux.getProx());
+	            } else {
+	                // se o elemento for o primeiro
+	                this.inicio = aux.getProx();
+	            }
+
+	            // se houver um nodo seguinte
+	            if (aux.getProx() != null) {
+	                aux.getProx().setAnt(aux.getAnt());
+	            }
+
+	            return true; // valor removido com sucesso
+	        }
+
+	        aux = aux.getProx();
+	    }
+
+	    return false; // valor não encontrado na lista
 	}
 
 	public void pesquisaValor(int valor) {
