@@ -1,0 +1,51 @@
+package duplamenteEncadeada;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class Teste_JUNIT {
+
+    @Test
+    public void testRemoverDeListaVazia() {
+        ListaDuplamenteEncadeada lista = new ListaDuplamenteEncadeada();
+        boolean resultado = lista.removeValor(10);
+        assertFalse(resultado);
+    }
+
+    @Test
+    public void testRemoverUnicoElemento() {
+        ListaDuplamenteEncadeada lista = new ListaDuplamenteEncadeada();
+        lista.insereOrdenado(5);
+        boolean resultado = lista.removeValor(5);
+        assertTrue(resultado);
+        assertFalse(lista.removeValor(5)); // já foi removido
+    }
+
+    @Test
+    public void testRemoverElementoDoInicio() {
+        ListaDuplamenteEncadeada lista = new ListaDuplamenteEncadeada();
+        lista.insereOrdenado(1);
+        lista.insereOrdenado(2);
+        lista.insereOrdenado(3);
+        assertTrue(lista.removeValor(1));
+    }
+
+    @Test
+    public void testRemoverElementoDoFim() {
+        ListaDuplamenteEncadeada lista = new ListaDuplamenteEncadeada();
+        lista.insereOrdenado(10);
+        lista.insereOrdenado(20);
+        lista.insereOrdenado(30);
+        assertTrue(lista.removeValor(30));
+    }
+
+    @Test
+    public void testRemoverElementoDoMeio() {
+        ListaDuplamenteEncadeada lista = new ListaDuplamenteEncadeada();
+        lista.insereOrdenado(100);
+        lista.insereOrdenado(200);
+        lista.insereOrdenado(300);
+        assertTrue(lista.removeValor(200));
+        assertFalse(lista.removeValor(999)); // não existe
+    }
+}
